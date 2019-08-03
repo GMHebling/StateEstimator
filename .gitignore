@@ -1,7 +1,8 @@
+.DS_Store
 *.o
 ./solver
 ./zolver
-/file_A.txt
-/file_b.txt
-/fileA.txt
-/fileb.txt
+file_A.txt
+file_b.txt
+fileA.txt
+fileb.txt
