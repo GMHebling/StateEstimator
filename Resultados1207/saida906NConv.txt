@@ -1,0 +1,168 @@
+Leitura de dados da rede elétrica...
+Main directory: 
+ /Users/gustavomh/Documents/EstimadorJulioOriginal 
+Data sub-folder: 
+ IEEE906_EuropeanLV 
+Estimador de Estado WLS Trifásico...
+
+
+Iteracao:  0 	|Dx|_inf =  0.01990687019421002 	 |Grad|_inf =  74467872382832.56250000000000000 
+
+Solve Householder: 2688.292284
+Operacoes Matrizes: 0.000016
+Monta H: 0.471460.
+
+Iteracao:  1 	|Dx|_inf =  0.00066113071443328 	 |Grad|_inf =  19653005230033526784.00000000000000000 
+
+Solve Householder: 2682.443703
+Operacoes Matrizes: 0.000031
+Monta H: 0.514535.
+
+Iteracao:  2 	|Dx|_inf =  0.00058803969123468 	 |Grad|_inf =  30574612127650455552.00000000000000000 
+
+Solve Householder: 2677.407227
+Operacoes Matrizes: 0.000038
+Monta H: 0.345995.
+
+Iteracao:  3 	|Dx|_inf =  0.00056459541792239 	 |Grad|_inf =  25077761544790282240.00000000000000000 
+
+Solve Householder: 2676.770080
+Operacoes Matrizes: 0.000025
+Monta H: 0.348040.
+
+Iteracao:  4 	|Dx|_inf =  0.00053779343981874 	 |Grad|_inf =  25873985801167302656.00000000000000000 
+
+Solve Householder: 2683.747386
+Operacoes Matrizes: 0.000031
+Monta H: 0.346268.
+
+Iteracao:  5 	|Dx|_inf =  0.00052470723943411 	 |Grad|_inf =  24808875832934957056.00000000000000000 
+
+Solve Householder: 2688.654111
+Operacoes Matrizes: 0.000026
+Monta H: 0.355218.
+
+Iteracao:  6 	|Dx|_inf =  0.00050890876860902 	 |Grad|_inf =  24475843124750221312.00000000000000000 
+
+Solve Householder: 2671.547830
+Operacoes Matrizes: 0.000033
+Monta H: 0.345025.
+
+Iteracao:  7 	|Dx|_inf =  0.00049719863176340 	 |Grad|_inf =  23922680841217011712.00000000000000000 
+
+Solve Householder: 2690.368658
+Operacoes Matrizes: 0.000025
+Monta H: 0.345068.
+
+Iteracao:  8 	|Dx|_inf =  0.00048548618367691 	 |Grad|_inf =  23455993701928787968.00000000000000000 
+
+Solve Householder: 2684.973312
+Operacoes Matrizes: 0.000030
+Monta H: 0.346274.
+
+Iteracao:  9 	|Dx|_inf =  0.00047419880151863 	 |Grad|_inf =  22974255581080334336.00000000000000000 
+
+Solve Householder: 2677.950365
+Operacoes Matrizes: 0.000025
+Monta H: 0.372056.
+
+Iteracao:  10 	|Dx|_inf =  0.00046318339431417 	 |Grad|_inf =  22510686695964852224.00000000000000000 
+
+Solve Householder: 2686.760696
+Operacoes Matrizes: 0.000033
+Monta H: 0.350861.
+
+Iteracao:  11 	|Dx|_inf =  0.00045247843509216 	 |Grad|_inf =  22054026902175940608.00000000000000000 
+
+Solve Householder: 2694.215058
+Operacoes Matrizes: 0.000025
+Monta H: 0.343884.
+
+Iteracao:  12 	|Dx|_inf =  0.00044205965460884 	 |Grad|_inf =  21607710513591357440.00000000000000000 
+
+Solve Householder: 2679.271163
+Operacoes Matrizes: 0.000032
+Monta H: 0.412352.
+
+Iteracao:  13 	|Dx|_inf =  0.00043192380009466 	 |Grad|_inf =  21170326791911297024.00000000000000000 
+
+Solve Householder: 2693.225411
+Operacoes Matrizes: 0.000025
+Monta H: 0.349465.
+
+Iteracao:  14 	|Dx|_inf =  0.00042206103225547 	 |Grad|_inf =  20742072087250071552.00000000000000000 
+
+Solve Householder: 2687.676917
+Operacoes Matrizes: 0.000031
+Monta H: 0.349324.
+
+Iteracao:  15 	|Dx|_inf =  0.00041246400816791 	 |Grad|_inf =  20322618781510983680.00000000000000000 
+
+Solve Householder: 2678.095800
+Operacoes Matrizes: 0.000028
+Monta H: 0.343521.
+
+Iteracao:  16 	|Dx|_inf =  0.00040312487905375 	 |Grad|_inf =  19911818890730033152.00000000000000000 
+
+Solve Householder: 2682.448427
+Operacoes Matrizes: 0.000029
+Monta H: 0.348207.
+
+Iteracao:  17 	|Dx|_inf =  0.00039403626965921 	 |Grad|_inf =  19509471475085156352.00000000000000000 
+
+Solve Householder: 2765.263728
+Operacoes Matrizes: 0.000024
+Monta H: 0.359214.
+
+Iteracao:  18 	|Dx|_inf =  0.00038519094578366 	 |Grad|_inf =  19115399265153183744.00000000000000000 
+
+Solve Householder: 2735.997832
+Operacoes Matrizes: 0.000017
+Monta H: 0.646642.
+
+Iteracao:  19 	|Dx|_inf =  0.00037658191506124 	 |Grad|_inf =  18729423117974589440.00000000000000000 
+
+Solve Householder: 2661.094878
+Operacoes Matrizes: 0.000019
+Monta H: 0.642808.
+
+Iteracao:  20 	|Dx|_inf =  0.00036820238476215 	 |Grad|_inf =  18351370302007377920.00000000000000000 
+
+Solve Householder: 2691.490976
+Operacoes Matrizes: 0.000031
+Monta H: 0.346721.
+
+Iteracao:  21 	|Dx|_inf =  0.00036004576693634 	 |Grad|_inf =  17981071580052826112.00000000000000000 
+
+Solve Householder: 2705.921099
+Operacoes Matrizes: 0.000025
+Monta H: 0.344279.
+
+Iteracao:  22 	|Dx|_inf =  0.00035210566870766 	 |Grad|_inf =  17618361980328652800.00000000000000000 
+
+Solve Householder: 2683.897310
+Operacoes Matrizes: 0.000034
+Monta H: 0.343481.
+
+Iteracao:  23 	|Dx|_inf =  0.00034437588735260 	 |Grad|_inf =  17263080389034475520.00000000000000000 
+
+Solve Householder: 2676.894021
+Operacoes Matrizes: 0.000034
+Monta H: 0.346047.
+
+Iteracao:  24 	|Dx|_inf =  0.00033685040388393 	 |Grad|_inf =  16915069521595359232.00000000000000000 
+
+Solve Householder: 2682.317839
+Operacoes Matrizes: 0.000033
+Monta H: 0.346246.
+
+Iteracao:  25 	|Dx|_inf =  0.00032952337804205 	 |Grad|_inf =  16574175782129530880.00000000000000000 
+
+Solve Householder: 2676.482709
+Operacoes Matrizes: 0.000025
+Monta H: 0.344220.
+
+Iteracao:  26 	|Dx|_inf =  0.00032238914247844 	 |Grad|_inf =  16240249173169221632.00000000000000000 
+
+Solve Householder: 2916.456878
+Operacoes Matrizes: 0.000024
