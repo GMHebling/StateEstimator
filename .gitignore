@@ -1,2 +1,8 @@
-*.o
+.*.o
+solver
+zolver
+file_A.txt
+file_b.txt
+fileA.txt
+fileb.txt
 
