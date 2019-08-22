@@ -14,8 +14,9 @@
 #include "funcoesBadData.h"
 
 //#include "mmio.h"
-#include "SuiteSparseQR_C.h"
 #include "cholmod.h"
+#include "SuiteSparseQR_C.h"
+
 
 int chamaFuncao;
 int chamaGrad;
@@ -707,11 +708,11 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
        
         //inicializacao de variaveis
         printf("INIT SPARSE");
-        cholmod_sparse *A_SS;
-        cholmod_dense *b_SS;
-        cholmod_dense *X_SS;
-        cholmod_triplet *T_SS;
-        cholmod_factor *L;
+        cholmod_sparse *A_SS = NULL;
+        cholmod_dense *b_SS = NULL;
+        cholmod_dense *X_SS = NULL;
+        cholmod_triplet *T_SS = NULL;
+        cholmod_factor *L = NULL;
 
         cholmod_common Common, *c;
         

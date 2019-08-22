@@ -1,6 +1,6 @@
 CC=gcc
-CFLAGS= -g -Wall
-LDFLAGS= -lm -lstdc++ -lcholmod -lspqr -lsuitesparseconfig
+CFLAGS= -g -Wall -I/home/r2t/Downloads/SuiteSparse/CHOLMOD/Include -I/home/r2t/Downloads/SuiteSparse/include
+LDFLAGS= -lcholmod -lspqr -lsuitesparseconfig -lm -lstdc++
 OBJFILES = main.o funcoesBadData.o funcoesCalculoEletrico.o funcoesLeitura.o funcoesMatematicas.o funcoesOtimizacao.o funcoesTopologia.o funcoesWLS.o
 TARGET = zolver
 

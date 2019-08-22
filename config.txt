@@ -1,2 +1,2 @@
-/Users/gustavomh/Documents/EstimadorJulio
-IEEE906EuropeanLV
+/home/r2t/Documentos/StateEstimator
+IEEE123

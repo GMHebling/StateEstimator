@@ -180,7 +180,7 @@ char* charMedidor(long int num){
 // Leitura de dados da rede elétrica
 char *leituraDados(DBAR **barra, DRAM **ramo, long int *numeroBarras, long int *numeroRamos, long int *numeroAlimentadores)
 {
-    FILE *arquivo;
+    FILE *arquivo = NULL;
     char linha[300],*pasta,*folder,aux[300],aux2[300];
 //    folder = (char *)malloc(600*sizeof(char));
     
@@ -223,6 +223,8 @@ char *leituraDados(DBAR **barra, DRAM **ramo, long int *numeroBarras, long int *
             exit(1);
     }
     leituraDBAR(arquivo,barra, numeroBarras, numeroAlimentadores);
+    printf("DBAR ok\n");
+    
     fclose(arquivo);
     
     strcpy(aux,aux2);
@@ -230,16 +232,20 @@ char *leituraDados(DBAR **barra, DRAM **ramo, long int *numeroBarras, long int *
     if(arquivo != NULL)
     {
             leituraDSHNT(arquivo,barra, numeroBarras);
+            printf("DSHNT ok\n");
+            fclose(arquivo);
     }
-    fclose(arquivo);
+    
     
     strcpy(aux,aux2);
     arquivo = fopen(strcat(aux,"DGD.csv"),"r"); //Le somente se existir o arquivo
     if(arquivo != NULL)
     {
             leituraDGD(arquivo,barra, numeroBarras);
+            printf("DGD ok\n");
+            fclose(arquivo);
     }
-    fclose(arquivo);
+    
         
     // Leitura dos dados de ramos
     
@@ -248,40 +254,50 @@ char *leituraDados(DBAR **barra, DRAM **ramo, long int *numeroBarras, long int *
     if(arquivo != NULL)
     {
             leituraDLIN(arquivo,ramo, numeroRamos,barra,numeroBarras);
+            printf("DLIN ok\n");
+            fclose(arquivo);
     }
-    fclose(arquivo);
+    
     
     strcpy(aux,aux2);
     arquivo = fopen(strcat(aux,"DTRF.csv"),"r"); //Le somente se existir o arquivo
     if(arquivo != NULL)
     {
             leituraDTRF(arquivo,ramo, numeroRamos,barra,numeroBarras);
+            printf("DTRF ok\n");
+            fclose(arquivo);
     }
-    fclose(arquivo);
+    
     
     strcpy(aux,aux2);
     arquivo = fopen(strcat(aux,"DREG.csv"),"r"); //Le somente se existir o arquivo
     if(arquivo != NULL)
     {
             leituraDREG(arquivo,ramo, numeroRamos,barra,numeroBarras);
+            printf("DREG ok\n");
+            fclose(arquivo);
     }
-    fclose(arquivo);
+    
     
     strcpy(aux,aux2);
     arquivo = fopen(strcat(aux,"DSWTC.csv"),"r"); //Le somente se existir o arquivo
     if(arquivo != NULL)
     {
             leituraDSWTC(arquivo,ramo, numeroRamos,barra,numeroBarras);
+            printf("DSWTC ok\n");
+            fclose(arquivo);
     }
-    fclose(arquivo);
+    
     
     strcpy(aux,aux2);
     arquivo = fopen(strcat(aux,"Vinicial.csv"),"r"); //Le somente se existir o arquivo
     if(arquivo != NULL)
     {
             leituraVinicial(arquivo,barra, numeroBarras);
+            printf("Vinicial ok\n");
+            fclose(arquivo);
     }
-    fclose(arquivo);
+    
     
     folder = getfield(aux2,1);
     return(folder);
