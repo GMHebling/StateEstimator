@@ -644,6 +644,16 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
     it=0;
     conv = 0;
     clock_t tIni = clock();
+
+    //inicializa vetores esparsos
+    long int *i_sparse = NULL;
+    long int *j_sparse = NULL;
+    double *x_sparse = NULL;
+
+    int nzeros=0;
+    i_sparse = aloca_vetor(nmed);
+    j_sparse = aloca_vetor(nvar);
+    x_sparse = aloca_vetor(nmed*nvar);
     
     while((it < 30)){
         clock_t t0 = clock();
@@ -651,6 +661,7 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
         //MONTAGEM DE H(x)
         //
         //************************************************************************
+        //TODO: montar nova atualiza_H_SS
         atualiza_H(grafo, numeroBarras, ramos, medidas, nmed); //atualiza Jacobiana do modelo de medição de acordo com o estado atual
         
         //Multiplica R_1/2*H e o modelo de medição - formulação do estimador via método QR
@@ -663,10 +674,14 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
         
         //Tira a coluna de angulos da referencia na matriz H(x)
         if (NAV==0){
-            tira_refs(H,nvar+3,nmed,ref1,ref2,H_rf,regua,ponto,it);
+            //tira_refs(H,nvar+3,nmed,ref1,ref2,H_rf,regua,ponto,it);
+            
+            //implementa todos os loops de montagem da matrix H (e T_esparsa) em uma mesma função
+            nzeros = tira_refs_sparse(medidas,H,nvar+3,nmed,ref1,ref2,i_sparse, j_sparse, x_sparse,regua,ponto,it);
         }
         else{
             mat_ig(H,nmed,nvar,H_rf);
+            //nzeros = mat_ig_sparse(H, nmed, nvar, i_sparse, j_sparse, x_sparse);
         }
         clock_t tMontaH = clock();
         free(Dx);
@@ -707,7 +722,7 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
 
        
         //inicializacao de variaveis
-        printf("INIT SPARSE");
+        printf("INIT SPARSE\n");
         cholmod_sparse *A_SS = NULL;
         cholmod_dense *b_SS = NULL;
         cholmod_dense *X_SS = NULL;
@@ -724,31 +739,41 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
         A_SS = cholmod_l_allocate_sparse(nmed, nvar, nmed*nvar, 0, 0, 0, CHOLMOD_REAL, c);
         b_SS = cholmod_l_allocate_dense(nmed, 1, nmed, CHOLMOD_REAL, c);
         
+
+
+        // gravar o triplet direto da funcao que tira a referencia 
+        //TODO: escrever T_SS na funcao tira_refs
        //escreve a matriz H_rf no formato Triplet
-       int index = 0;
-        for(int i=0;i<nmed;i++){
-            for(int j=0;j<medidas[i].nvar;j++){
-                for(int r = 0;r<nvar;r++){
-                    if (cabs(medidas[i].reguaH[j]-regua[r]) < EPS){
-                        if (H_rf[i][r] != 0){
-                            ((long int*)T_SS->i)[index] = i;
-                            ((long int*)T_SS->j)[index] = r;
-                            ((double*)T_SS->x)[index] = H_rf[i][r];
-                            T_SS->nnz += 1;
-                            index += 1;
-                        break;}
-                    }
-                }
-            }
-        }
+       T_SS->i = i_sparse;
+       T_SS->j = j_sparse;
+       T_SS->x = x_sparse;
+       T_SS->nnz = nzeros;
+       
+       //int index = 0;
+       // for(int i=0;i<nmed;i++){
+       //     for(int j=0;j<medidas[i].nvar;j++){
+       //         for(int r = 0;r<nvar;r++){
+       //             if (cabs(medidas[i].reguaH[j]-regua[r]) < EPS){
+       //                 if (H_rf[i][r] != 0){
+       //                     ((long int*)T_SS->i)[index] = i;
+       //                     ((long int*)T_SS->j)[index] = r;
+       //                     ((double*)T_SS->x)[index] = H_rf[i][r];
+       //                     T_SS->nnz += 1;
+       //                     index += 1;
+       //                 break;}
+       //             }
+       //         }
+       //     }
+       // }
         
        //escreve o vetor Dz no formato Dense
        for(int i=0;i<nmed;i++){
             ((double*)b_SS->x)[i] = Dz[i];
         } 
         //converte a matrix triplet para sparse
+        
         A_SS = cholmod_l_triplet_to_sparse(T_SS, nmed*nvar, c);
-
+        cholmod_l_free_triplet(&T_SS, c);
         clock_t WriteMatrix = clock();
        // //Solucao via SuiteSparse
        int mtype = 0;
@@ -757,6 +782,7 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
         //SOLUCAO DO SISTEMA LINEAR
         //Rt*Dx = Qt*(z-h(x))
         //************************************************************************
+        
         clock_t tHouse = clock();
         //X_SS = cholmod_solve(CHOLMOD_A, L, b_SS, c);
         X_SS = SuiteSparseQR_C_backslash(SPQR_ORDERING_METIS, SPQR_NO_TOL, A_SS, b_SS, c);
@@ -764,9 +790,10 @@ int otimiza_Gauss_NewtonQR(double *z, double **h, double ***H, GRAFO *grafo, lon
         clock_t tSolve = clock();
         Dx = (double*)X_SS->x;
 
-        cholmod_l_free_triplet(&T_SS, c);
-        cholmod_l_free_sparse(&A_SS, c);
-        cholmod_l_free_dense(&b_SS, c);
+        
+        //cholmod_l_free_sparse(&A_SS, c);
+        //cholmod_l_free_dense(&b_SS, c);
+        //cholmod_l_free_triplet(&T_SS, c);
         
 
         cholmod_l_finish(c);       

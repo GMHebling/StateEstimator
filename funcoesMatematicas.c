@@ -956,6 +956,24 @@ double prod_escalar(double *a,double *b,int n)
      return(c);
 }
 //Iguala Matrizes B = A
+long int mat_ig_sparse(double ***A,int m,int n, long int *i_sparse, long int *j_sparse, double  *x_sparse){
+     int i,j;
+     int index =0;    
+     for (i=0;i<m;i++)
+     {
+         for (j=0;j<n;j++)
+         {
+             if (*A[i][j] != 0){
+                i_sparse[index] = i;
+                j_sparse[index] = j;
+                x_sparse[index] = *A[i][j];
+                index += 1;
+             }
+             
+         }
+     }
+     return index;
+}
 void mat_ig(double ***A,int m,int n, double **B){
      int i,j;
 
@@ -1008,17 +1026,79 @@ void matTransp( double **A, int m, int n, double **At){
     }
 }
 
+
+
+long int tira_refs_sparse(DMED *medidas, double ***A,int m,int n,int col1, int col2,long int *sparse_i, long int *sparse_j, double *sparse_x, double *regua, double *x, long int it){
+    int i,j,n_cols;
+    int index_i = 0;
+    int index_j = 0;
+    long int nzeros = 0;
+
+    n_cols = col2 - col1 + 1;
+    for (i=0;i<n;i++){
+        for (j=0;j<m;j++){
+            if (j<col1){
+                if (it == 0){
+                    regua[j] = regua[j];
+                    x[j] = x[j];
+                }
+                if (*A[i][j] != 0){
+                    sparse_i[index_i] = i;
+                    sparse_j[index_i] = j;
+                    sparse_x[index_i] = *A[i][j];
+                    index_i += 1;
+                    nzeros += 1;
+                    //for (int r=0;r<medidas[i].nvar;r++){
+                    //    if (medidas[i].reguaH[r] - regua[j] < EPS){
+                    //        sparse_j[index_j] = j;
+                    //        index_j += 1;
+                    //    }
+                    //}
+                }
+                
+            }
+            else if (j>col2){
+                if (it == 0){
+                    regua[(j-n_cols)] = regua[j];
+                    x[(j-n_cols)] = x[j];
+                }
+                if (*A[i][j] != 0){
+                    sparse_i[index_i] = i;
+                    sparse_x[index_i] = *A[i][j];
+                    sparse_j[index_i] = j;
+                    index_i += 1;
+                    nzeros += 1;
+                    //for (int r=0;r<medidas[i].nvar;r++){
+                    //    if (medidas[i].reguaH[r] - regua[(j-n_cols)] < EPS){
+                    //        sparse_j[index_j] = (j-n_cols);
+                    //        index_j += 1;
+                    //    }
+                    //}
+                }
+                
+            }
+        }
+    }
+    
+    return nzeros;
+}
+
+
+
 //Tira coluna de matriz
 void tira_refs(double ***A,int m,int n,int col1, int col2,double **temp, double *regua, double *x, long int it){
     int i,j,n_cols;
+    int index = 0;
     
     n_cols = col2 - col1 + 1;
     for (i=0;i<n;i++)
     {
         for (j=0;j<m;j++)
         {
-            if (j<col1)
-               temp[i][j] = *A[i][j];
+            if (j<col1){
+                temp[i][j] = *A[i][j];
+            }
+
             else if (j>col2)
                 temp[i][(j-n_cols)] = *A[i][j];
         }

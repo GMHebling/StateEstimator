@@ -8,6 +8,7 @@
 #ifndef FUNCOESMATEMATICAS_H
 #define	FUNCOESMATEMATICAS_H
 
+
 //Funções com matrizes complexas
 __complex__ double *c_vetAloca(int n);
 __complex__ double **c_matAloca(int n);
@@ -31,7 +32,10 @@ double norma_euc(double *a,int n);
 void matTransp( double **A, int m, int n, double **At);
 
 void mat_ig(double ***A,int m,int n, double **B);
-void tira_refs(double ***A,int m,int n,int col1, int col2,double **temp, double *regua, double *x, long int it);
+void tira_refs(double ***A,int m,int n,int col1, int col2, double **temp, double *regua, double *x, long int it);
+
+long int tira_refs_sparse(DMED *medidas, double ***A,int m,int n,int col1, int col2,long int *sparse_i, long int *sparse_j, double *sparse_x, double *regua, double *x, long int it);
+long int mat_ig_sparse(double ***A,int m,int n, long int *i_sparse, long int *j_sparse, double  *x_sparse);
 
 void cat_hor(double **A,int m1,int n1,double **B,int m2,int n2, double **temp);
 void cat_vert(double **A,int m1,int n1,double **B,int m2,int n2, double **temp);
